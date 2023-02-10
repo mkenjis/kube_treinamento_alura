@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-db
+  labels:
+    app: pod-db
+spec:
+  containers:
+    - name: db-container
+      image: mysql:5.7
+      volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: db-volume
+      ports:
+        - containerPort: 3306
+      env:
+        - name: "MYSQL_ROOT_PASSWORD"
+          value: "admsys123"
+        - name: "MYSQL_DATABASE"
+          value: "metastore"
+        - name: "MYSQL_USER"
+          value: "hiveuser"
+        - name: "MYSQL_PASSWORD"
+          value: "hive123"
+  volumes:
+    - name: db-volume
+      hostPath:
+        path: /home/mysqldb
+        type: DirectoryOrCreate

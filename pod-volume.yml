@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-volume
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx:latest
+      volumeMounts:
+        - mountPath: /volume1
+          name: primeiro-volume
+
+    - name: mongo-container
+      image: mongo
+      volumeMounts:
+        - mountPath: /volume1
+          name: primeiro-volume
+
+  volumes:
+    - name: primeiro-volume
+      hostPath:
+        path: /home/data
+        type: DirectoryOrCreate
